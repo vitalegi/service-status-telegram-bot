@@ -1,8 +1,6 @@
 # README
 
-Aim of this project is to have an utility on telegram that is able to perform analysis on financial data.
-
-As data provider, has been selected Yahoo!Finance.
+Aim of this project is to have an utility on telegram that will send notification in case a service http response status changes.
 
 ## Compile
 
@@ -16,19 +14,15 @@ mvn clean package
 
 ```bash
 set PATH=C:\Program Files\Java\jdk1.8.0_131\bin;%PATH%
-java -jar .\target\finance-telegram-bot-0.0.1.jar <OPTIONS>
+java -jar .\target\service-status-telegram-bot-0.0.1.jar <OPTIONS>
 ```
 
 ### OPTIONS
 
-`--a=alias1`
+`--spring.profiles.active=prod`
 
-`--a` _alias_
-
-Alias of the next properties file declared.
+Mandatory field, to allow production usage.
 
 #### Example usage
 
-`--a=test --f=test-application.properties --a=uat --f=uat-application.properties --a=preprod --f=preprod-application.properties --a=prod --f=prod-application.properties --m=tabular --o=diffs.html`
-
-Will analyze the files _test-application.properties_ (test), _uat-application.properties_ (uat), _preprod-application.properties_ (preprod), _prod-application.properties_ (prod), printing the results to file _diffs.html_.
+`--spring.profiles.active=prod`
