@@ -25,4 +25,8 @@ public class MonitorStatus {
 		boolean changed = oldValue == null || !oldValue.equals(newValue);
 		return changed;
 	}
+	
+	public void reset() {
+		init();
+	}
 }

@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import it.vitalegi.servicestatustelegrambot.service.HttpMonitorServiceImpl;
+import it.vitalegi.servicestatustelegrambot.service.MonitorStatus;
 import it.vitalegi.servicestatustelegrambot.telegram.TelegramHandlers;
 
 @Configuration
@@ -32,6 +33,9 @@ public class SpringConfig {
 	@Autowired
 	HttpMonitorServiceImpl httpMonitorService;
 
+	@Autowired
+	MonitorStatus monitorStatus;
+	
 	@Bean
 	public TelegramBotsApi telegramBot() {
 		log.info("init telegramBot");
@@ -52,8 +56,13 @@ public class SpringConfig {
 		return telegramHandlers;
 	}
 
-	@Scheduled(cron = "${cron.expression}")
-	public void scheduleFixedDelayTask() {
+	@Scheduled(cron = "${scheduler.check.cron.expression}")
+	public void scheduleHttpMonitorCheckTask() {
 		httpMonitorService.process();
+	}
+
+	@Scheduled(cron = "${scheduler.reset.cron.expression}")
+	public void scheduleHttpMonitorResetTask() {
+		monitorStatus.reset();
 	}
 }
